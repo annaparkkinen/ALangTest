@@ -1,0 +1,13 @@
+# Environment — NEVER commit secrets
+.env
+
+# Oracle data volume (local only)
+oradata/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+*.iml

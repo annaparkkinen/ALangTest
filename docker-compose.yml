@@ -1,0 +1,29 @@
+services:
+  oracle-apex:
+    build: .
+    container_name: apex-dev
+    ports:
+      - "${ORACLE_PORT:-8521}:1521"
+      - "${APEX_PORT:-8023}:8080"
+      - "8500:5500"
+      - "9043:8443"
+      - "9922:22"
+    environment:
+      ORACLE_PWD: ${ORACLE_PWD:-E}
+      APEX_ADMIN_PASSWORD: ${APEX_ADMIN_PASSWORD:-OrclAPEX1999!}
+      APP_SCHEMA: ${APP_SCHEMA:-MYAPP}
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./apex:/apex-apps
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD", "/scripts/healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 20
+      start_period: 120s
+    restart: unless-stopped
+
+volumes:
+  oracle-data:
+    driver: local

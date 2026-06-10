@@ -1,0 +1,3 @@
+[submodule "oracle-skills"]
+	path = oracle-skills
+	url = https://github.com/oracle/skills.git

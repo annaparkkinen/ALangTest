@@ -1,0 +1,1 @@
+This directory is for the generated apex application
